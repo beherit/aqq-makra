@@ -4,13 +4,13 @@
   <MACROS>
     <VERSION value="BCB.06.00"/>
     <PROJECT value="Makra.dll"/>
-    <OBJFILES value="Makra.obj ChangeStateFrm.obj"/>
+    <OBJFILES value="Makra.obj"/>
     <RESFILES value="Makra.res"/>
     <DEFFILE value=""/>
-    <RESDEPEN value="$(RESFILES) ChangeStateFrm.dfm"/>
+    <RESDEPEN value="$(RESFILES)"/>
     <LIBFILES value=""/>
-    <LIBRARIES value="dclusr.lib vcl.lib rtl.lib"/>
-    <SPARELIBS value="rtl.lib vcl.lib dclusr.lib"/>
+    <LIBRARIES value="rtl.lib"/>
+    <SPARELIBS value="rtl.lib"/>
     <PACKAGES value="vcl.bpi rtl.bpi vclx.bpi bcbsmp.bpi dclocx.bpi"/>
     <PATHCPP value=".;"/>
     <PATHPAS value=".;"/>
@@ -22,8 +22,8 @@
     <USERDEFINES value="_DEBUG"/>
     <SYSDEFINES value="NO_STRICT"/>
     <MAINSOURCE value="Makra.bpf"/>
-    <INCLUDEPATH value="$(BCB)\xpman;..\..\AQQRestarter\1.0.1.2;&quot;D:\Borland - moje projkety\Makra&quot;;$(BCB)\include;$(BCB)\include\vcl"/>
-    <LIBPATH value="$(BCB)\Projects\Lib;$(BCB)\xpman;..\..\AQQRestarter\1.0.1.2;&quot;D:\Borland - moje projkety\Makra&quot;;$(BCB)\lib\obj;$(BCB)\lib"/>
+    <INCLUDEPATH value="&quot;D:\Borland - moje projkety\Makra&quot;;$(BCB)\include;$(BCB)\include\vcl"/>
+    <LIBPATH value="&quot;D:\Borland - moje projkety\Makra&quot;;$(BCB)\lib\obj;$(BCB)\lib"/>
     <WARNINGS value="-w-par"/>
     <OTHERFILES value=""/>
   </MACROS>
@@ -46,7 +46,6 @@
       <FILE FILENAME="Makra.res" FORMNAME="" UNITNAME="Makra.res" CONTAINERID="ResTool" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="Makra.bpf" FORMNAME="" UNITNAME="Makra" CONTAINERID="BPF" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="Makra.cpp" FORMNAME="" UNITNAME="Makra" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
-      <FILE FILENAME="ChangeStateFrm.cpp" FORMNAME="ChangeStateForm" UNITNAME="ChangeStateFrm" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
   </FILELIST>
   <BUILDTOOLS>
   </BUILDTOOLS>
@@ -57,7 +56,7 @@ IncludeVerInfo=1
 AutoIncBuild=0
 MajorVer=1
 MinorVer=0
-Release=1
+Release=2
 Build=0
 Debug=0
 PreRelease=0
@@ -70,28 +69,24 @@ CodePage=1250
 [Version Info Keys]
 CompanyName=Krzysztof Grochocki (Beherit)
 FileDescription=
-FileVersion=1.0.1.0
+FileVersion=1.0.2.0
 InternalName=Makra
 LegalCopyright=Krzysztof Grochocki (Beherit)
 LegalTrademarks=Krzysztof Grochocki (Beherit)
 OriginalFilename=Makra.dll
 ProductName=Makra
-ProductVersion=1.0.1.0
+ProductVersion=1.0.2.0
 Comments=Dodaje makra do głównego okna
 
 [HistoryLists\hlIncludePath]
-Count=4
-Item0=$(BCB)\xpman;..\..\AQQRestarter\1.0.1.2;D:\Borland - moje projkety\Makra;$(BCB)\include;$(BCB)\include\vcl
-Item1=..\..\AQQRestarter\1.0.1.2;D:\Borland - moje projkety\Makra;$(BCB)\include;$(BCB)\include\vcl
-Item2=D:\Borland - moje projkety\Makra;$(BCB)\include;$(BCB)\include\vcl
-Item3=$(BCB)\include;$(BCB)\include\vcl
+Count=2
+Item0=D:\Borland - moje projkety\Makra;$(BCB)\include;$(BCB)\include\vcl
+Item1=$(BCB)\include;$(BCB)\include\vcl
 
 [HistoryLists\hlLibraryPath]
-Count=4
-Item0=$(BCB)\Projects\Lib;$(BCB)\xpman;..\..\AQQRestarter\1.0.1.2;D:\Borland - moje projkety\Makra;$(BCB)\lib\obj;$(BCB)\lib
-Item1=..\..\AQQRestarter\1.0.1.2;D:\Borland - moje projkety\Makra;$(BCB)\lib\obj;$(BCB)\lib
-Item2=D:\Borland - moje projkety\Makra;$(BCB)\lib\obj;$(BCB)\lib
-Item3=$(BCB)\lib\obj;$(BCB)\lib
+Count=2
+Item0=D:\Borland - moje projkety\Makra;$(BCB)\lib\obj;$(BCB)\lib
+Item1=$(BCB)\lib\obj;$(BCB)\lib
 
 [HistoryLists\hlDebugSourcePath]
 Count=1
