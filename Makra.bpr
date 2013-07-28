@@ -57,7 +57,7 @@ IncludeVerInfo=1
 AutoIncBuild=0
 MajorVer=1
 MinorVer=0
-Release=0
+Release=1
 Build=0
 Debug=0
 PreRelease=0
@@ -70,26 +70,28 @@ CodePage=1250
 [Version Info Keys]
 CompanyName=Krzysztof Grochocki (Beherit)
 FileDescription=
-FileVersion=1.0.0.0
+FileVersion=1.0.1.0
 InternalName=Makra
 LegalCopyright=Krzysztof Grochocki (Beherit)
 LegalTrademarks=Krzysztof Grochocki (Beherit)
 OriginalFilename=Makra.dll
 ProductName=Makra
-ProductVersion=1.0.0.0
+ProductVersion=1.0.1.0
 Comments=Dodaje makra do głównego okna
 
 [HistoryLists\hlIncludePath]
-Count=3
-Item0=..\..\AQQRestarter\1.0.1.2;D:\Borland - moje projkety\Makra;$(BCB)\include;$(BCB)\include\vcl
-Item1=D:\Borland - moje projkety\Makra;$(BCB)\include;$(BCB)\include\vcl
-Item2=$(BCB)\include;$(BCB)\include\vcl
+Count=4
+Item0=$(BCB)\xpman;..\..\AQQRestarter\1.0.1.2;D:\Borland - moje projkety\Makra;$(BCB)\include;$(BCB)\include\vcl
+Item1=..\..\AQQRestarter\1.0.1.2;D:\Borland - moje projkety\Makra;$(BCB)\include;$(BCB)\include\vcl
+Item2=D:\Borland - moje projkety\Makra;$(BCB)\include;$(BCB)\include\vcl
+Item3=$(BCB)\include;$(BCB)\include\vcl
 
 [HistoryLists\hlLibraryPath]
-Count=3
-Item0=..\..\AQQRestarter\1.0.1.2;D:\Borland - moje projkety\Makra;$(BCB)\lib\obj;$(BCB)\lib
-Item1=D:\Borland - moje projkety\Makra;$(BCB)\lib\obj;$(BCB)\lib
-Item2=$(BCB)\lib\obj;$(BCB)\lib
+Count=4
+Item0=$(BCB)\Projects\Lib;$(BCB)\xpman;..\..\AQQRestarter\1.0.1.2;D:\Borland - moje projkety\Makra;$(BCB)\lib\obj;$(BCB)\lib
+Item1=..\..\AQQRestarter\1.0.1.2;D:\Borland - moje projkety\Makra;$(BCB)\lib\obj;$(BCB)\lib
+Item2=D:\Borland - moje projkety\Makra;$(BCB)\lib\obj;$(BCB)\lib
+Item3=$(BCB)\lib\obj;$(BCB)\lib
 
 [HistoryLists\hlDebugSourcePath]
 Count=1
