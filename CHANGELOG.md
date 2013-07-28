@@ -1,3 +1,8 @@
+1.0.0.0
+-----
+* Dodanie do okna zmiany opisu możliwości zmiany jednocześnie stanu.
+* Inne mniej ważne poprawki w kodzie.
+
 0.0.3.2
 -----
 * Poprawiono błąd przy wyładowywaniu wtyczki.
