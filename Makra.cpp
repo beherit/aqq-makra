@@ -28,17 +28,17 @@ TPluginLink PluginLink;
 TPluginInfo PluginInfo;
 
 //Program
-extern "C"  __declspec(dllexport) TPluginInfo* __stdcall AQQPluginInfo(DWORD AQQVersion)
+extern "C" __declspec(dllexport) PPluginInfo __stdcall AQQPluginInfo(DWORD AQQVersion)
 {
   PluginInfo.cbSize = sizeof(TPluginInfo);
   PluginInfo.ShortName = (wchar_t*)L"Makra";
-  PluginInfo.Version = PLUGIN_MAKE_VERSION(1,0,2,0);
-  PluginInfo.Description = (wchar_t *)L"Dodaje makra do g³ównego okna";
+  PluginInfo.Version = PLUGIN_MAKE_VERSION(2,0,0,0);
+  PluginInfo.Description = (wchar_t *)L"Dodaje ikonke makr do g³ównego okna AQQ";
   PluginInfo.Author = (wchar_t *)L"Krzysztof Grochocki (Beherit)";
   PluginInfo.AuthorMail = (wchar_t *)L"beherit666@vp.pl";
   PluginInfo.Copyright = (wchar_t *)L"Krzysztof Grochocki (Beherit)";
-  PluginInfo.Homepage = (wchar_t *)L"";
- 
+  PluginInfo.Homepage = (wchar_t *)L"http://beherit.pl/";
+
   return &PluginInfo;
 }
 //---------------------------------------------------------------------------
@@ -47,8 +47,8 @@ void PrzypiszPopupmenu()
 {
   PluginActionPopupmenu.cbSize = sizeof(TPluginAction);
   PluginActionPopupmenu.pszName = L"MakraPopup";
-  PluginActionPopupmenu.pszCaption = (wchar_t*) L"MakraPopup";
-  PluginActionPopupmenu.pszPopupName = (wchar_t*) L"MakraPopup";
+  PluginActionPopupmenu.pszCaption = (wchar_t*)L"MakraPopup";
+  PluginActionPopupmenu.pszPopupName = (wchar_t*)L"MakraPopup";
   PluginLink.CallService(AQQ_CONTROLS_CREATEPOPUPMENU,0,(LPARAM)(&PluginActionPopupmenu));
 }
 //---------------------------------------------------------------------------
@@ -57,10 +57,10 @@ void PrzypiszButton()
 {
   PluginActionButton.cbSize = sizeof(TPluginAction);
   PluginActionButton.pszName = L"MakraButton";
-  PluginActionButton.pszCaption = (wchar_t*) L"MakraButton";
+  PluginActionButton.pszCaption = (wchar_t*)L"MakraButton";
   PluginActionButton.Position = 114;
   PluginActionButton.IconIndex = 63;
-  PluginActionButton.pszPopupName = (wchar_t*) L"MakraPopup";
+  PluginActionButton.pszPopupName = (wchar_t*)L"MakraPopup";
   PluginLink.CallService(AQQ_CONTROLS_TOOLBAR "ToolDown" AQQ_CONTROLS_CREATEBUTTON,0,(LPARAM)(&PluginActionButton));
 }
 //---------------------------------------------------------------------------
@@ -174,7 +174,7 @@ void PrzypiszZmienOpis()
 }
 //---------------------------------------------------------------------------
 
-extern "C" int __declspec(dllexport) __stdcall Load(TPluginLink *Link)
+extern "C" int __declspec(dllexport) __stdcall Load(PPluginLink Link)
 {
   PluginLink = *Link;
 

@@ -1,3 +1,7 @@
+2.0.0.0
+-----
+* Przepisanie wtyczki pod kompilator CodeGear C++ Builder 2009.
+
 1.0.2.0
 -----
 * Usunięto możliwość jednoczesnej zmiany stanu wszystkich sieci podczas zmieniania opisu.
