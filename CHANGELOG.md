@@ -1,3 +1,7 @@
+0.0.3.0
+-----
+* Dodanie separatorów tak jak to mamy w makrach w tray’u -tak wygląda lepiej.
+
 0.0.2.0
 -----
 * Zmieniono całkowicie działanie wtyczki - przedtem wtyczka klonowała makra z tray’a. Co za tym idzie:

@@ -22,6 +22,7 @@ PluginAction TPluginActionNiePrzeszkadzac;
 PluginAction TPluginActionNiewidoczne;
 PluginAction TPluginActionRozlaczone;
 PluginAction TPluginActionOpis;
+PluginAction TPluginActionSeparator;
 PluginLink TPluginLink;
 PluginInfo TPluginInfo;
 
@@ -30,12 +31,12 @@ extern "C"  __declspec(dllexport) PluginInfo* __stdcall AQQPluginInfo(DWORD AQQV
 {
   TPluginInfo.cbSize = sizeof(PluginInfo);
   TPluginInfo.ShortName = (wchar_t*)L"Makra";
-  TPluginInfo.Version = PLUGIN_MAKE_VERSION(0,0,2,0);
+  TPluginInfo.Version = PLUGIN_MAKE_VERSION(0,0,3,0);
   TPluginInfo.Description = (wchar_t *)L"Dodaje makra do g³ównego okna";
-  TPluginInfo.Author = (wchar_t *)L"Krzysztof Grochocki";
+  TPluginInfo.Author = (wchar_t *)L"Krzysztof Grochocki (Beherit)";
   TPluginInfo.AuthorMail = (wchar_t *)L"beherit666@vp.pl";
-  TPluginInfo.Copyright = (wchar_t *)L"Prawa zastrze¿one, tylko dla autora.";
-  TPluginInfo.Homepage = (wchar_t *)L"Brak";
+  TPluginInfo.Copyright = (wchar_t *)L"Krzysztof Grochocki (Beherit)";
+  TPluginInfo.Homepage = (wchar_t *)L"";
  
   return &TPluginInfo;
 }
@@ -76,13 +77,19 @@ void PrzypiszKontaWolne()
   TPluginActionWolne.Position = 2;
   TPluginActionWolne.pszPopupName = (wchar_t*) L"MakraPopup";
   TPluginLink.CallService(AQQ_CONTROLS_CREATEPOPUPMENUITEM,0,(LPARAM)(&TPluginActionWolne));
+
+  TPluginActionSeparator.cbSize = sizeof(PluginAction);
+  TPluginActionSeparator.pszCaption = (wchar_t*) L"-";
+  TPluginActionSeparator.Position = 3;
+  TPluginActionSeparator.pszPopupName = (wchar_t*) L"MakraPopup";
+  TPluginLink.CallService(AQQ_CONTROLS_CREATEPOPUPMENUITEM,0,(LPARAM)(&TPluginActionSeparator));
 }
 
 void PrzypiszKontaOddalone()
 {
   TPluginActionOddalone.cbSize = sizeof(PluginAction);
   TPluginActionOddalone.Action = (wchar_t*) L"aMacroAway";
-  TPluginActionOddalone.Position = 3;
+  TPluginActionOddalone.Position = 4;
   TPluginActionOddalone.pszPopupName = (wchar_t*) L"MakraPopup";
   TPluginLink.CallService(AQQ_CONTROLS_CREATEPOPUPMENUITEM,0,(LPARAM)(&TPluginActionOddalone));
 }
@@ -91,7 +98,7 @@ void PrzypiszKontaNieobecne()
 {
   TPluginActionNieobecne.cbSize = sizeof(PluginAction);
   TPluginActionNieobecne.Action = (wchar_t*) L"aMacroXA";
-  TPluginActionNieobecne.Position = 4;
+  TPluginActionNieobecne.Position = 5;
   TPluginActionNieobecne.pszPopupName = (wchar_t*) L"MakraPopup";
   TPluginLink.CallService(AQQ_CONTROLS_CREATEPOPUPMENUITEM,0,(LPARAM)(&TPluginActionNieobecne));
 }
@@ -100,16 +107,22 @@ void PrzypiszKontaNiePrzeszkadzac()
 {
   TPluginActionNiePrzeszkadzac.cbSize = sizeof(PluginAction);
   TPluginActionNiePrzeszkadzac.Action = (wchar_t*) L"aMacroDND";
-  TPluginActionNiePrzeszkadzac.Position = 5;
+  TPluginActionNiePrzeszkadzac.Position = 6;
   TPluginActionNiePrzeszkadzac.pszPopupName = (wchar_t*) L"MakraPopup";
   TPluginLink.CallService(AQQ_CONTROLS_CREATEPOPUPMENUITEM,0,(LPARAM)(&TPluginActionNiePrzeszkadzac));
+
+  TPluginActionSeparator.cbSize = sizeof(PluginAction);
+  TPluginActionSeparator.pszCaption = (wchar_t*) L"-";
+  TPluginActionSeparator.Position = 7;
+  TPluginActionSeparator.pszPopupName = (wchar_t*) L"MakraPopup";
+  TPluginLink.CallService(AQQ_CONTROLS_CREATEPOPUPMENUITEM,0,(LPARAM)(&TPluginActionSeparator));
 }
 
 void PrzypiszKontaNiewidoczne()
 {
   TPluginActionNiewidoczne.cbSize = sizeof(PluginAction);
   TPluginActionNiewidoczne.Action = (wchar_t*) L"aMacroInvisible";
-  TPluginActionNiewidoczne.Position = 6;
+  TPluginActionNiewidoczne.Position = 8;
   TPluginActionNiewidoczne.pszPopupName = (wchar_t*) L"MakraPopup";
   TPluginLink.CallService(AQQ_CONTROLS_CREATEPOPUPMENUITEM,0,(LPARAM)(&TPluginActionNiewidoczne));
 }
@@ -118,16 +131,22 @@ void PrzypiszKontaRozlaczone()
 {
   TPluginActionRozlaczone.cbSize = sizeof(PluginAction);
   TPluginActionRozlaczone.Action = (wchar_t*) L"aMacroOffline";
-  TPluginActionRozlaczone.Position = 7;
+  TPluginActionRozlaczone.Position = 9;
   TPluginActionRozlaczone.pszPopupName = (wchar_t*) L"MakraPopup";
   TPluginLink.CallService(AQQ_CONTROLS_CREATEPOPUPMENUITEM,0,(LPARAM)(&TPluginActionRozlaczone));
+
+  TPluginActionSeparator.cbSize = sizeof(PluginAction);
+  TPluginActionSeparator.pszCaption = (wchar_t*) L"-";
+  TPluginActionSeparator.Position = 10;
+  TPluginActionSeparator.pszPopupName = (wchar_t*) L"MakraPopup";
+  TPluginLink.CallService(AQQ_CONTROLS_CREATEPOPUPMENUITEM,0,(LPARAM)(&TPluginActionSeparator));
 }
 
 void PrzypiszZmienOpis()
 {
   TPluginActionOpis.cbSize = sizeof(PluginAction);
   TPluginActionOpis.Action = (wchar_t*) L"aNote";
-  TPluginActionOpis.Position = 8;
+  TPluginActionOpis.Position = 11;
   TPluginActionOpis.pszPopupName = (wchar_t*) L"MakraPopup";
   TPluginLink.CallService(AQQ_CONTROLS_CREATEPOPUPMENUITEM,0,(LPARAM)(&TPluginActionOpis));
 }
@@ -159,6 +178,7 @@ extern "C" int __declspec(dllexport) __stdcall Unload()
   TPluginLink.CallService(AQQ_CONTROLS_DESTROYPOPUPMENUITEM ,0,(LPARAM)(&TPluginActionNiewidoczne));
   TPluginLink.CallService(AQQ_CONTROLS_DESTROYPOPUPMENUITEM ,0,(LPARAM)(&TPluginActionRozlaczone));
   TPluginLink.CallService(AQQ_CONTROLS_DESTROYPOPUPMENUITEM ,0,(LPARAM)(&TPluginActionOpis));
+  TPluginLink.CallService(AQQ_CONTROLS_DESTROYPOPUPMENUITEM ,0,(LPARAM)(&TPluginActionSeparator));
   TPluginLink.CallService(AQQ_CONTROLS_DESTROYPOPUPMENU ,0,(LPARAM)(&TPluginActionPopupmenu));
   TPluginLink.CallService(AQQ_CONTROLS_TOOLBAR "ToolDown" AQQ_CONTROLS_DESTROYBUTTON ,0,(LPARAM)(&TPluginActionButton));
 
