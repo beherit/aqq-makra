@@ -1,3 +1,8 @@
+0.0.3.2
+-----
+* Poprawiono błąd przy wyładowywaniu wtyczki.
+* Poprawiono błąd ze znikającymi elementami.
+
 0.0.3.0
 -----
 * Dodanie separatorów tak jak to mamy w makrach w tray’u -tak wygląda lepiej.

@@ -57,7 +57,7 @@ AutoIncBuild=0
 MajorVer=0
 MinorVer=0
 Release=3
-Build=0
+Build=2
 Debug=0
 PreRelease=0
 Special=0
@@ -69,14 +69,17 @@ CodePage=1250
 [Version Info Keys]
 CompanyName=Krzysztof Grochocki (Beherit)
 FileDescription=
-FileVersion=0.0.3.0
+FileVersion=0.0.3.2
 InternalName=Makra
 LegalCopyright=Krzysztof Grochocki (Beherit)
 LegalTrademarks=Krzysztof Grochocki (Beherit)
 OriginalFilename=Makra.dll
 ProductName=Makra
-ProductVersion=0.0.3.0
+ProductVersion=0.0.3.2
 Comments=Dodaje makra do głównego okna
+
+[Excluded Packages]
+C:\Program Files\ZipForge\Lib\C++ Builder 6\dclZipForgeb6.bpl=ZipForge Package
 
 [HistoryLists\hlIncludePath]
 Count=2
