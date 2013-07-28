@@ -31,13 +31,9 @@ PluginStateChange TPluginStateChange;
 PluginLink TPluginLink;
 PluginInfo TPluginInfo;
 
-AnsiString opis;
-
 //Notyfikacja otwarcia okna
 int __stdcall OnSetNoteOpen (WPARAM wParam, LPARAM lParam)
 {
-  TPluginLink.CallService(AQQ_FUNCTION_GETNETWORKSTATE,(WPARAM)(&TPluginStateChange),0);
-  opis = TPluginStateChange.Status;
   if (handle==NULL)
   {
     Application->Handle = ChangeStateForm ;
@@ -53,32 +49,34 @@ int __stdcall OnSetNoteOpen (WPARAM wParam, LPARAM lParam)
 }
 //---------------------------------------------------------------------------
 
+//Notyfikacja zmiany opisu
+int __stdcall OnSetNote (WPARAM wParam, LPARAM lParam)
+{
+  int State=handle->StateBox->ItemIndex;
+
+  if(State==0)//Konta po³¹czone
+   TPluginLink.CallService(AQQ_SYSTEM_RUNACTION,0,(LPARAM)(L"aMacroOnline"));
+  if(State==1)//Konta wolne
+   TPluginLink.CallService(AQQ_SYSTEM_RUNACTION,0,(LPARAM)(L"aMacroChat"));
+  if(State==2)//Konta oddalone
+   TPluginLink.CallService(AQQ_SYSTEM_RUNACTION,0,(LPARAM)(L"aMacroAway"));
+  if(State==3)//Konta nieobecne
+   TPluginLink.CallService(AQQ_SYSTEM_RUNACTION,0,(LPARAM)(L"aMacroXA"));
+  if(State==4)//Konta nie przeszkadzaæ
+   TPluginLink.CallService(AQQ_SYSTEM_RUNACTION,0,(LPARAM)(L"aMacroDND"));
+  if(State==5)//Konta niewidoczne
+   TPluginLink.CallService(AQQ_SYSTEM_RUNACTION,0,(LPARAM)(L"aMacroInvisible"));
+  if(State==6)//Konta roz³¹czone
+   TPluginLink.CallService(AQQ_SYSTEM_RUNACTION,0,(LPARAM)(L"aMacroOffline"));
+
+  return 0;
+}
+
 //Notyfikacja zamkniecia okna
 int __stdcall OnSetNoteClose (WPARAM wParam, LPARAM lParam)
 {
-  int State=handle->StateBox->ItemIndex;
   handle->StateBox->Visible=false;
   handle->Close();
-
-  TPluginLink.CallService(AQQ_FUNCTION_GETNETWORKSTATE,(WPARAM)(&TPluginStateChange),0);
-  AnsiString opisTMP = TPluginStateChange.Status;
-  if(opisTMP!=opis)
-  {
-    if(State==0)//Konta po³¹czone
-     TPluginLink.CallService(AQQ_SYSTEM_RUNACTION,0,(LPARAM)(L"aMacroOnline"));
-    if(State==1)//Konta wolne
-     TPluginLink.CallService(AQQ_SYSTEM_RUNACTION,0,(LPARAM)(L"aMacroChat"));
-    if(State==2)//Konta oddalone
-     TPluginLink.CallService(AQQ_SYSTEM_RUNACTION,0,(LPARAM)(L"aMacroAway"));
-    if(State==3)//Konta nieobecne
-     TPluginLink.CallService(AQQ_SYSTEM_RUNACTION,0,(LPARAM)(L"aMacroXA"));
-    if(State==4)//Konta nie przeszkadzaæ
-     TPluginLink.CallService(AQQ_SYSTEM_RUNACTION,0,(LPARAM)(L"aMacroDND"));
-    if(State==5)//Konta niewidoczne
-     TPluginLink.CallService(AQQ_SYSTEM_RUNACTION,0,(LPARAM)(L"aMacroInvisible"));
-    if(State==6)//Konta roz³¹czone
-     TPluginLink.CallService(AQQ_SYSTEM_RUNACTION,0,(LPARAM)(L"aMacroOffline"));
-  }
 
   return 0;
 }
@@ -89,7 +87,7 @@ extern "C"  __declspec(dllexport) PluginInfo* __stdcall AQQPluginInfo(DWORD AQQV
 {
   TPluginInfo.cbSize = sizeof(PluginInfo);
   TPluginInfo.ShortName = (wchar_t*)L"Makra";
-  TPluginInfo.Version = PLUGIN_MAKE_VERSION(1,0,0,0);
+  TPluginInfo.Version = PLUGIN_MAKE_VERSION(1,0,1,0);
   TPluginInfo.Description = (wchar_t *)L"Dodaje makra do g³ównego okna";
   TPluginInfo.Author = (wchar_t *)L"Krzysztof Grochocki (Beherit)";
   TPluginInfo.AuthorMail = (wchar_t *)L"beherit666@vp.pl";
@@ -247,8 +245,9 @@ extern "C" int __declspec(dllexport) __stdcall Load(PluginLink *Link)
   PrzypiszKontaRozlaczone();
   PrzypiszZmienOpis();
 
-  TPluginLink.HookEvent(AQQ_WINDOW_SETNOTE_PUTNOTE, OnSetNoteOpen);
-  TPluginLink.HookEvent(AQQ_WINDOW_SETNOTE_CLOSE, OnSetNoteClose);
+  TPluginLink.HookEvent(AQQ_WINDOW_SETNOTE_PUTNOTE, OnSetNoteOpen); //Otwarcie okna
+  TPluginLink.HookEvent(AQQ_SYSTEM_SETNOTE, OnSetNote); //Zmienienie opisu
+  TPluginLink.HookEvent(AQQ_WINDOW_SETNOTE_CLOSE, OnSetNoteClose); //Zamkniecie okna
 
   return 0;
 }
@@ -257,6 +256,7 @@ extern "C" int __declspec(dllexport) __stdcall Load(PluginLink *Link)
 extern "C" int __declspec(dllexport) __stdcall Unload()
 {
   TPluginLink.UnhookEvent(OnSetNoteOpen);
+  TPluginLink.UnhookEvent(OnSetNote);
   TPluginLink.UnhookEvent(OnSetNoteClose);
 
   TPluginLink.CallService(AQQ_CONTROLS_DESTROYPOPUPMENUITEM ,0,(LPARAM)(&TPluginActionPolaczone));

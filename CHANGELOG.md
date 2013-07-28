@@ -1,3 +1,7 @@
+1.0.1.0
+-----
+* Poprawienie znanych błędów: wskakiwanie wersji AQQ do opisu oraz zmienianie statnów sieci po naduszeniu nawet anuluj (teraz działa tylko na OK).
+
 1.0.0.0
 -----
 * Dodanie do okna zmiany opisu możliwości zmiany jednocześnie stanu.
