@@ -4,12 +4,16 @@
 #pragma hdrstop
 #pragma argsused
 #include "Aqq.h"
+#include "ChangeStateFrm.h"
 //---------------------------------------------------------------------------
+
+TChangeStateForm *handle; //tworzenie uchwytu do formy
 
 int WINAPI DllEntryPoint(HINSTANCE hinst, unsigned long reason, void* lpReserved)
 {
         return 1;
 }
+//---------------------------------------------------------------------------
 
 // Utworzenie obiektow do struktur
 PluginAction TPluginActionPopupmenu;
@@ -23,15 +27,69 @@ PluginAction TPluginActionNiewidoczne;
 PluginAction TPluginActionRozlaczone;
 PluginAction TPluginActionOpis;
 PluginAction TPluginActionSeparator;
+PluginStateChange TPluginStateChange;
 PluginLink TPluginLink;
 PluginInfo TPluginInfo;
+
+AnsiString opis;
+
+//Notyfikacja otwarcia okna
+int __stdcall OnSetNoteOpen (WPARAM wParam, LPARAM lParam)
+{
+  TPluginLink.CallService(AQQ_FUNCTION_GETNETWORKSTATE,(WPARAM)(&TPluginStateChange),0);
+  opis = TPluginStateChange.Status;
+  if (handle==NULL)
+  {
+    Application->Handle = ChangeStateForm ;
+    handle = new TChangeStateForm (Application);
+    handle->Show();
+  }
+  else
+  {
+    handle->Show();
+  }
+
+  return 0;
+}
+//---------------------------------------------------------------------------
+
+//Notyfikacja zamkniecia okna
+int __stdcall OnSetNoteClose (WPARAM wParam, LPARAM lParam)
+{
+  int State=handle->StateBox->ItemIndex;
+  handle->StateBox->Visible=false;
+  handle->Close();
+
+  TPluginLink.CallService(AQQ_FUNCTION_GETNETWORKSTATE,(WPARAM)(&TPluginStateChange),0);
+  AnsiString opisTMP = TPluginStateChange.Status;
+  if(opisTMP!=opis)
+  {
+    if(State==0)//Konta po³¹czone
+     TPluginLink.CallService(AQQ_SYSTEM_RUNACTION,0,(LPARAM)(L"aMacroOnline"));
+    if(State==1)//Konta wolne
+     TPluginLink.CallService(AQQ_SYSTEM_RUNACTION,0,(LPARAM)(L"aMacroChat"));
+    if(State==2)//Konta oddalone
+     TPluginLink.CallService(AQQ_SYSTEM_RUNACTION,0,(LPARAM)(L"aMacroAway"));
+    if(State==3)//Konta nieobecne
+     TPluginLink.CallService(AQQ_SYSTEM_RUNACTION,0,(LPARAM)(L"aMacroXA"));
+    if(State==4)//Konta nie przeszkadzaæ
+     TPluginLink.CallService(AQQ_SYSTEM_RUNACTION,0,(LPARAM)(L"aMacroDND"));
+    if(State==5)//Konta niewidoczne
+     TPluginLink.CallService(AQQ_SYSTEM_RUNACTION,0,(LPARAM)(L"aMacroInvisible"));
+    if(State==6)//Konta roz³¹czone
+     TPluginLink.CallService(AQQ_SYSTEM_RUNACTION,0,(LPARAM)(L"aMacroOffline"));
+  }
+
+  return 0;
+}
+//---------------------------------------------------------------------------
 
 //Program
 extern "C"  __declspec(dllexport) PluginInfo* __stdcall AQQPluginInfo(DWORD AQQVersion)
 {
   TPluginInfo.cbSize = sizeof(PluginInfo);
   TPluginInfo.ShortName = (wchar_t*)L"Makra";
-  TPluginInfo.Version = PLUGIN_MAKE_VERSION(0,0,3,2);
+  TPluginInfo.Version = PLUGIN_MAKE_VERSION(1,0,0,0);
   TPluginInfo.Description = (wchar_t *)L"Dodaje makra do g³ównego okna";
   TPluginInfo.Author = (wchar_t *)L"Krzysztof Grochocki (Beherit)";
   TPluginInfo.AuthorMail = (wchar_t *)L"beherit666@vp.pl";
@@ -40,6 +98,7 @@ extern "C"  __declspec(dllexport) PluginInfo* __stdcall AQQPluginInfo(DWORD AQQV
  
   return &TPluginInfo;
 }
+//---------------------------------------------------------------------------
 
 void PrzypiszPopupmenu()
 {
@@ -49,6 +108,7 @@ void PrzypiszPopupmenu()
   TPluginActionPopupmenu.pszPopupName = (wchar_t*) L"MakraPopup";
   TPluginLink.CallService(AQQ_CONTROLS_CREATEPOPUPMENU,0,(LPARAM)(&TPluginActionPopupmenu));
 }
+//---------------------------------------------------------------------------
 
 void PrzypiszButton()
 {
@@ -60,6 +120,7 @@ void PrzypiszButton()
   TPluginActionButton.pszPopupName = (wchar_t*) L"MakraPopup";
   TPluginLink.CallService(AQQ_CONTROLS_TOOLBAR "ToolDown" AQQ_CONTROLS_CREATEBUTTON,0,(LPARAM)(&TPluginActionButton));
 }
+//---------------------------------------------------------------------------
 
 void PrzypiszKontaPolaczone()
 {
@@ -70,6 +131,7 @@ void PrzypiszKontaPolaczone()
   TPluginActionPolaczone.pszPopupName = (wchar_t*) L"MakraPopup";
   TPluginLink.CallService(AQQ_CONTROLS_CREATEPOPUPMENUITEM,0,(LPARAM)(&TPluginActionPolaczone));
 }
+//---------------------------------------------------------------------------
 
 void PrzypiszKontaWolne()
 {
@@ -87,6 +149,7 @@ void PrzypiszKontaWolne()
   TPluginActionSeparator.pszPopupName = (wchar_t*) L"MakraPopup";
   TPluginLink.CallService(AQQ_CONTROLS_CREATEPOPUPMENUITEM,0,(LPARAM)(&TPluginActionSeparator));
 }
+//---------------------------------------------------------------------------
 
 void PrzypiszKontaOddalone()
 {
@@ -97,6 +160,7 @@ void PrzypiszKontaOddalone()
   TPluginActionOddalone.pszPopupName = (wchar_t*) L"MakraPopup";
   TPluginLink.CallService(AQQ_CONTROLS_CREATEPOPUPMENUITEM,0,(LPARAM)(&TPluginActionOddalone));
 }
+//---------------------------------------------------------------------------
 
 void PrzypiszKontaNieobecne()
 {
@@ -107,6 +171,7 @@ void PrzypiszKontaNieobecne()
   TPluginActionNieobecne.pszPopupName = (wchar_t*) L"MakraPopup";
   TPluginLink.CallService(AQQ_CONTROLS_CREATEPOPUPMENUITEM,0,(LPARAM)(&TPluginActionNieobecne));
 }
+//---------------------------------------------------------------------------
 
 void PrzypiszKontaNiePrzeszkadzac()
 {
@@ -124,6 +189,7 @@ void PrzypiszKontaNiePrzeszkadzac()
   TPluginActionSeparator.pszPopupName = (wchar_t*) L"MakraPopup";
   TPluginLink.CallService(AQQ_CONTROLS_CREATEPOPUPMENUITEM,0,(LPARAM)(&TPluginActionSeparator));
 }
+//---------------------------------------------------------------------------
 
 void PrzypiszKontaNiewidoczne()
 {
@@ -134,6 +200,7 @@ void PrzypiszKontaNiewidoczne()
   TPluginActionNiewidoczne.pszPopupName = (wchar_t*) L"MakraPopup";
   TPluginLink.CallService(AQQ_CONTROLS_CREATEPOPUPMENUITEM,0,(LPARAM)(&TPluginActionNiewidoczne));
 }
+//---------------------------------------------------------------------------
 
 void PrzypiszKontaRozlaczone()
 {
@@ -151,6 +218,7 @@ void PrzypiszKontaRozlaczone()
   TPluginActionSeparator.pszPopupName = (wchar_t*) L"MakraPopup";
   TPluginLink.CallService(AQQ_CONTROLS_CREATEPOPUPMENUITEM,0,(LPARAM)(&TPluginActionSeparator));
 }
+//---------------------------------------------------------------------------
 
 void PrzypiszZmienOpis()
 {
@@ -161,10 +229,13 @@ void PrzypiszZmienOpis()
   TPluginActionOpis.pszPopupName = (wchar_t*) L"MakraPopup";
   TPluginLink.CallService(AQQ_CONTROLS_CREATEPOPUPMENUITEM,0,(LPARAM)(&TPluginActionOpis));
 }
+//---------------------------------------------------------------------------
 
 extern "C" int __declspec(dllexport) __stdcall Load(PluginLink *Link)
 {
   TPluginLink = *Link;
+
+  //Przypisywanie ikonki makra w g³ównym oknie
   PrzypiszPopupmenu();
   PrzypiszButton();
   PrzypiszKontaPolaczone();
@@ -176,11 +247,18 @@ extern "C" int __declspec(dllexport) __stdcall Load(PluginLink *Link)
   PrzypiszKontaRozlaczone();
   PrzypiszZmienOpis();
 
+  TPluginLink.HookEvent(AQQ_WINDOW_SETNOTE_PUTNOTE, OnSetNoteOpen);
+  TPluginLink.HookEvent(AQQ_WINDOW_SETNOTE_CLOSE, OnSetNoteClose);
+
   return 0;
 }
+//---------------------------------------------------------------------------
 
 extern "C" int __declspec(dllexport) __stdcall Unload()
 {
+  TPluginLink.UnhookEvent(OnSetNoteOpen);
+  TPluginLink.UnhookEvent(OnSetNoteClose);
+
   TPluginLink.CallService(AQQ_CONTROLS_DESTROYPOPUPMENUITEM ,0,(LPARAM)(&TPluginActionPolaczone));
   TPluginLink.CallService(AQQ_CONTROLS_DESTROYPOPUPMENUITEM ,0,(LPARAM)(&TPluginActionWolne));
   TPluginLink.CallService(AQQ_CONTROLS_DESTROYPOPUPMENUITEM ,0,(LPARAM)(&TPluginActionOddalone));
@@ -195,3 +273,4 @@ extern "C" int __declspec(dllexport) __stdcall Unload()
 
   return 0;
 }
+//---------------------------------------------------------------------------
