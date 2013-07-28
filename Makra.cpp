@@ -237,7 +237,7 @@ extern "C" __declspec(dllexport) PPluginInfo __stdcall AQQPluginInfo(DWORD AQQVe
 {
   PluginInfo.cbSize = sizeof(TPluginInfo);
   PluginInfo.ShortName = L"Makra";
-  PluginInfo.Version = PLUGIN_MAKE_VERSION(2,1,0,0);
+  PluginInfo.Version = PLUGIN_MAKE_VERSION(2,2,0,0);
   PluginInfo.Description = L"Wtyczka dodaje funkcjonalnoœæ makr, znan¹ ze starych, pocz¹tkowych wersji beta komunikatora AQQ, która kry³a siê pod ikonk¹ pioruna.";
   PluginInfo.Author = L"Krzysztof Grochocki (Beherit)";
   PluginInfo.AuthorMail = L"kontakt@beherit.pl";
