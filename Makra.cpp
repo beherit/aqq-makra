@@ -1,3 +1,24 @@
+//---------------------------------------------------------------------------
+// Copyright (C) 2008-2013 Krzysztof Grochocki
+//
+// This file is part of Makra
+//
+// Makra is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 3, or (at your option)
+// any later version.
+//
+// Makra is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with GNU Radio; see the file COPYING. If not, write to
+// the Free Software Foundation, Inc., 51 Franklin Street,
+// Boston, MA 02110-1301, USA.
+//---------------------------------------------------------------------------
+
 #include <vcl.h>
 #include <windows.h>
 #pragma hdrstop
@@ -13,7 +34,6 @@ int WINAPI DllEntryPoint(HINSTANCE hinst, unsigned long reason, void* lpReserved
 //Struktury-glowne-----------------------------------------------------------
 TPluginLink PluginLink;
 TPluginInfo PluginInfo;
-TPluginAction PluginAction;
 //---------------------------------------------------------------------------
 
 //Usuwanie przycisku makr
@@ -21,7 +41,8 @@ void DestroyMacroItems()
 {
   for(int Count=0;Count<=12;Count++)
   {
-    //Wielkosc struktury
+    TPluginAction PluginAction;
+	ZeroMemory(&PluginAction,sizeof(TPluginAction));
 	PluginAction.cbSize = sizeof(TPluginAction);
 	//Uzupelnianie nazwy itemu
 	if(Count==0) PluginAction.pszName = L"MakraPopUp";
@@ -53,6 +74,8 @@ void BuildMacroItems()
 	//Tworzenie menu
 	if(Count==0)
 	{
+	  TPluginAction PluginAction;
+	  ZeroMemory(&PluginAction,sizeof(TPluginAction));
 	  PluginAction.cbSize = sizeof(TPluginAction);
 	  PluginAction.Action = L"";
 	  PluginAction.pszCaption = L"";
@@ -65,6 +88,8 @@ void BuildMacroItems()
 	//Tworzenie przycisku
 	else if(Count==1)
 	{
+	  TPluginAction PluginAction;
+	  ZeroMemory(&PluginAction,sizeof(TPluginAction));
 	  PluginAction.cbSize = sizeof(TPluginAction);
 	  PluginAction.Action = L"";
 	  PluginAction.pszCaption = L"";
@@ -77,6 +102,8 @@ void BuildMacroItems()
 	//Tworzenie przycisku "Konta polaczone"
 	else if(Count==2)
 	{
+	  TPluginAction PluginAction;
+	  ZeroMemory(&PluginAction,sizeof(TPluginAction));
 	  PluginAction.cbSize = sizeof(TPluginAction);
 	  PluginAction.Action = L"aMacroOnline";
 	  PluginAction.pszCaption = L"";
@@ -89,6 +116,8 @@ void BuildMacroItems()
 	//Tworzenie przycisku "Konta wolne"
 	else if(Count==3)
 	{
+	  TPluginAction PluginAction;
+	  ZeroMemory(&PluginAction,sizeof(TPluginAction));
 	  PluginAction.cbSize = sizeof(TPluginAction);
 	  PluginAction.Action = L"aMacroChat";
 	  PluginAction.pszCaption = L"";
@@ -101,6 +130,8 @@ void BuildMacroItems()
 	//Tworzenie separatora
 	else if(Count==4)
 	{
+	  TPluginAction PluginAction;
+	  ZeroMemory(&PluginAction,sizeof(TPluginAction));
 	  PluginAction.cbSize = sizeof(TPluginAction);
 	  PluginAction.Action = L"";
 	  PluginAction.pszCaption = L"-";
@@ -113,6 +144,8 @@ void BuildMacroItems()
 	//Tworzenie przycisku "Konta oddalone"
 	else if(Count==5)
 	{
+	  TPluginAction PluginAction;
+	  ZeroMemory(&PluginAction,sizeof(TPluginAction));
 	  PluginAction.cbSize = sizeof(TPluginAction);
 	  PluginAction.Action = L"aMacroAway";
 	  PluginAction.pszCaption = L"";
@@ -125,6 +158,8 @@ void BuildMacroItems()
 	//Tworzenie przycisku "Konta nieobecne"
 	else if(Count==6)
 	{
+	  TPluginAction PluginAction;
+	  ZeroMemory(&PluginAction,sizeof(TPluginAction));
 	  PluginAction.cbSize = sizeof(TPluginAction);
 	  PluginAction.Action = L"aMacroXA";
 	  PluginAction.pszCaption = L"";
@@ -137,6 +172,8 @@ void BuildMacroItems()
 	//Tworzenie przycisku "Konta nie przeszkadzac"
 	else if(Count==7)
 	{
+	  TPluginAction PluginAction;
+	  ZeroMemory(&PluginAction,sizeof(TPluginAction));
 	  PluginAction.cbSize = sizeof(TPluginAction);
 	  PluginAction.Action = L"aMacroDND";
 	  PluginAction.pszCaption = L"";
@@ -149,6 +186,8 @@ void BuildMacroItems()
 	//Tworzenie separatora
 	else if(Count==8)
 	{
+	  TPluginAction PluginAction;
+	  ZeroMemory(&PluginAction,sizeof(TPluginAction));
 	  PluginAction.cbSize = sizeof(TPluginAction);
 	  PluginAction.Action = L"";
 	  PluginAction.pszCaption = L"-";
@@ -161,6 +200,8 @@ void BuildMacroItems()
 	//Tworzenie przycisku "Konta niewidoczne"
 	else if(Count==9)
 	{
+	  TPluginAction PluginAction;
+	  ZeroMemory(&PluginAction,sizeof(TPluginAction));
 	  PluginAction.cbSize = sizeof(TPluginAction);
 	  PluginAction.Action = L"aMacroInvisible";
 	  PluginAction.pszCaption = L"";
@@ -173,6 +214,8 @@ void BuildMacroItems()
 	//Tworzenie przycisku "Konta rozlaczone"
 	else if(Count==10)
 	{
+	  TPluginAction PluginAction;
+	  ZeroMemory(&PluginAction,sizeof(TPluginAction));
 	  PluginAction.cbSize = sizeof(TPluginAction);
 	  PluginAction.Action = L"aMacroOffline";
 	  PluginAction.pszCaption = L"";
@@ -185,6 +228,8 @@ void BuildMacroItems()
 	//Tworzenie separatora
 	else if(Count==11)
 	{
+	  TPluginAction PluginAction;
+	  ZeroMemory(&PluginAction,sizeof(TPluginAction));
 	  PluginAction.cbSize = sizeof(TPluginAction);
 	  PluginAction.Action = L"";
 	  PluginAction.pszCaption = L"-";
@@ -197,6 +242,8 @@ void BuildMacroItems()
 	//Tworzenie przycisku "Zmien opis..."
 	else if(Count==12)
 	{
+	  TPluginAction PluginAction;
+	  ZeroMemory(&PluginAction,sizeof(TPluginAction));
 	  PluginAction.cbSize = sizeof(TPluginAction);
 	  PluginAction.Action = L"aNote";
 	  PluginAction.pszCaption = L"";
@@ -237,12 +284,14 @@ extern "C" __declspec(dllexport) PPluginInfo __stdcall AQQPluginInfo(DWORD AQQVe
 {
   PluginInfo.cbSize = sizeof(TPluginInfo);
   PluginInfo.ShortName = L"Makra";
-  PluginInfo.Version = PLUGIN_MAKE_VERSION(2,2,0,0);
+  PluginInfo.Version = PLUGIN_MAKE_VERSION(2,2,1,0);
   PluginInfo.Description = L"Wtyczka dodaje funkcjonalnoœæ makr, znan¹ ze starych, pocz¹tkowych wersji beta komunikatora AQQ, która kry³a siê pod ikonk¹ pioruna.";
   PluginInfo.Author = L"Krzysztof Grochocki (Beherit)";
   PluginInfo.AuthorMail = L"kontakt@beherit.pl";
   PluginInfo.Copyright = L"Krzysztof Grochocki (Beherit)";
   PluginInfo.Homepage = L"http://beherit.pl";
+  PluginInfo.Flag = 0;
+  PluginInfo.ReplaceDefaultModule = 0;
 
   return &PluginInfo;
 }
