@@ -39,220 +39,105 @@ TPluginInfo PluginInfo;
 //Usuwanie przycisku makr
 void DestroyMacroItems()
 {
-	for(int Count=0; Count<=12; Count++)
+	//Usuwanie PopUpMenu
+	TPluginAction MakraPopUp;
+	ZeroMemory(&MakraPopUp, sizeof(TPluginAction));
+	MakraPopUp.cbSize = sizeof(TPluginAction);
+	MakraPopUp.pszName = L"MakraPopUp";
+	PluginLink.CallService(AQQ_CONTROLS_DESTROYPOPUPMENU, 0, (LPARAM)(&MakraPopUp));
+	//Usuwanie elementow popupmenu
+	for(int Count=1 ;Count<=11; Count++)
 	{
-		TPluginAction PluginAction;
-		ZeroMemory(&PluginAction, sizeof(TPluginAction));
-		PluginAction.cbSize = sizeof(TPluginAction);
-		//Uzupelnianie nazwy itemu
-		if(Count==0) PluginAction.pszName = L"MakraPopUp";
-		else if(Count==1) PluginAction.pszName = L"MakraButton";
-		else if(Count==2) PluginAction.pszName = L"MakraOnlineItem";
-		else if(Count==3) PluginAction.pszName = L"MakraFreeForChatItem";
-		else if(Count==4) PluginAction.pszName = L"MakraSeparatorItem1";
-		else if(Count==5) PluginAction.pszName = L"MakraAwayItem";
-		else if(Count==6) PluginAction.pszName = L"MakraXAItem";
-		else if(Count==7) PluginAction.pszName = L"MakraDNDItem";
-		else if(Count==8) PluginAction.pszName = L"MakraSeparatorItem2";
-		else if(Count==9) PluginAction.pszName = L"MakraInvisibleItem";
-		else if(Count==10) PluginAction.pszName = L"MakraOfflineItem";
-		else if(Count==11) PluginAction.pszName = L"MakraSeparatorItem3";
-		else if(Count==12) PluginAction.pszName = L"MakraNoteItem";
-		//Usuwanie danego itema lub popupmenu/buttona
-		if(Count==0) PluginLink.CallService(AQQ_CONTROLS_DESTROYPOPUPMENU, 0, (LPARAM)(&PluginAction));
-		else if(Count==1) PluginLink.CallService(AQQ_CONTROLS_TOOLBAR "ToolDown" AQQ_CONTROLS_DESTROYBUTTON, 0, (LPARAM)(&PluginAction));
-		else PluginLink.CallService(AQQ_CONTROLS_DESTROYPOPUPMENUITEM, 0, (LPARAM)(&PluginAction));
+		TPluginAction MakraPopUpItem;
+		ZeroMemory(&MakraPopUpItem,sizeof(TPluginAction));
+		MakraPopUpItem.cbSize = sizeof(TPluginAction);
+		UnicodeString ItemName = "MakraPopUpItem"+IntToStr(Count);
+		MakraPopUpItem.pszName = ItemName.w_str();
+		PluginLink.CallService(AQQ_CONTROLS_DESTROYPOPUPMENUITEM , 0, (LPARAM)(&MakraPopUpItem));
 	}
+	//Usuwanie buttona w oknie kontatkow
+	TPluginAction FrmMainMakraButton;
+	ZeroMemory(&FrmMainMakraButton,sizeof(TPluginAction));
+	FrmMainMakraButton.cbSize = sizeof(TPluginAction);
+	FrmMainMakraButton.pszName = L"FrmMainMakraButton";
+	PluginLink.CallService(AQQ_CONTROLS_TOOLBAR "ToolDown" AQQ_CONTROLS_DESTROYBUTTON , 0, (LPARAM)(&FrmMainMakraButton));
 }
 //---------------------------------------------------------------------------
 
 //Tworzenie przycisku makr
 void BuildMacroItems()
 {
-	for(int Count=0;Count<=12;Count++)
+	//Tworzenie PopUpMenu
+	TPluginAction MakraPopUp;
+	ZeroMemory(&MakraPopUp, sizeof(TPluginAction));
+	MakraPopUp.cbSize = sizeof(TPluginAction);
+	MakraPopUp.pszName = L"MakraPopUp";
+	PluginLink.CallService(AQQ_CONTROLS_CREATEPOPUPMENU, 0, (LPARAM)(&MakraPopUp));
+	//Tworzenie buttona w oknie kontaktów
+	TPluginAction FrmMainMakraButton;
+	ZeroMemory(&FrmMainMakraButton,sizeof(TPluginAction));
+	FrmMainMakraButton.cbSize = sizeof(TPluginAction);
+	FrmMainMakraButton.pszName = L"FrmMainMakraButton";
+	FrmMainMakraButton.Position = 114;
+	FrmMainMakraButton.IconIndex = 63;
+	FrmMainMakraButton.pszPopupName = L"MakraPopUp";
+	PluginLink.CallService(AQQ_CONTROLS_TOOLBAR "ToolDown" AQQ_CONTROLS_CREATEBUTTON, 0, (LPARAM)(&FrmMainMakraButton));
+	//Tworzenie elementow popupmenu
+	for(int Count=1 ;Count<=11; Count++)
 	{
-		//Tworzenie menu
-		if(Count==0)
+		TPluginAction MakraPopUpItem;
+		ZeroMemory(&MakraPopUpItem, sizeof(TPluginAction));
+		MakraPopUpItem.cbSize = sizeof(TPluginAction);		
+		UnicodeString ItemName = "MakraPopUpItem"+IntToStr(Count);
+		MakraPopUpItem.pszName = ItemName.w_str();		
+		MakraPopUpItem.Position = Count;
+		MakraPopUpItem.pszPopupName = L"MakraPopUp";		
+		if(Count==1)
 		{
-			TPluginAction PluginAction;
-			ZeroMemory(&PluginAction, sizeof(TPluginAction));
-			PluginAction.cbSize = sizeof(TPluginAction);
-			PluginAction.Action = L"";
-			PluginAction.pszCaption = L"";
-			PluginAction.pszName = L"MakraPopUp";
-			PluginAction.Position = 0;
-			PluginAction.IconIndex = 0;
-			PluginAction.pszPopupName = L"";
-			PluginLink.CallService(AQQ_CONTROLS_CREATEPOPUPMENU, 0, (LPARAM)(&PluginAction));
+			MakraPopUpItem.Action = L"aMacroOnline";
+			MakraPopUpItem.pszCaption = L"";			
 		}
-		//Tworzenie przycisku
-		else if(Count==1)
-		{
-			TPluginAction PluginAction;
-			ZeroMemory(&PluginAction, sizeof(TPluginAction));
-			PluginAction.cbSize = sizeof(TPluginAction);
-			PluginAction.Action = L"";
-			PluginAction.pszCaption = L"";
-			PluginAction.pszName = L"MakraButton";
-			PluginAction.Position = 114;
-			PluginAction.IconIndex = 63;
-			PluginAction.pszPopupName = L"MakraPopUp";
-			PluginLink.CallService(AQQ_CONTROLS_TOOLBAR "ToolDown" AQQ_CONTROLS_CREATEBUTTON, 0, (LPARAM)(&PluginAction));
-		}
-		//Tworzenie przycisku "Konta polaczone"
 		else if(Count==2)
 		{
-			TPluginAction PluginAction;
-			ZeroMemory(&PluginAction, sizeof(TPluginAction));
-			PluginAction.cbSize = sizeof(TPluginAction);
-			PluginAction.Action = L"aMacroOnline";
-			PluginAction.pszCaption = L"";
-			PluginAction.pszName = L"MakraOnlineItem";
-			PluginAction.Position = 1;
-			PluginAction.IconIndex = 0;
-			PluginAction.pszPopupName = L"MakraPopUp";
-			PluginLink.CallService(AQQ_CONTROLS_CREATEPOPUPMENUITEM, 0, (LPARAM)(&PluginAction));
+			MakraPopUpItem.Action = L"aMacroChat";
+			MakraPopUpItem.pszCaption = L"";			
 		}
-		//Tworzenie przycisku "Konta wolne"
-		else if(Count==3)
+		else if((Count==3)||(Count==7)||(Count==10))
 		{
-			TPluginAction PluginAction;
-			ZeroMemory(&PluginAction, sizeof(TPluginAction));
-			PluginAction.cbSize = sizeof(TPluginAction);
-			PluginAction.Action = L"aMacroChat";
-			PluginAction.pszCaption = L"";
-			PluginAction.pszName = L"MakraFreeForChatItem";
-			PluginAction.Position = 2;
-			PluginAction.IconIndex = 0;
-			PluginAction.pszPopupName = L"MakraPopUp";
-			PluginLink.CallService(AQQ_CONTROLS_CREATEPOPUPMENUITEM, 0, (LPARAM)(&PluginAction));
+			MakraPopUpItem.Action = L"";
+			MakraPopUpItem.pszCaption = L"-";			
 		}
-		//Tworzenie separatora
 		else if(Count==4)
 		{
-			TPluginAction PluginAction;
-			ZeroMemory(&PluginAction, sizeof(TPluginAction));
-			PluginAction.cbSize = sizeof(TPluginAction);
-			PluginAction.Action = L"";
-			PluginAction.pszCaption = L"-";
-			PluginAction.pszName = L"MakraSeparatorItem1";
-			PluginAction.Position = 3;
-			PluginAction.IconIndex = 0;
-			PluginAction.pszPopupName = L"MakraPopUp";
-			PluginLink.CallService(AQQ_CONTROLS_CREATEPOPUPMENUITEM, 0, (LPARAM)(&PluginAction));
+			MakraPopUpItem.Action = L"aMacroAway";
+			MakraPopUpItem.pszCaption = L"";			
 		}
-		//Tworzenie przycisku "Konta oddalone"
 		else if(Count==5)
 		{
-			TPluginAction PluginAction;
-			ZeroMemory(&PluginAction, sizeof(TPluginAction));
-			PluginAction.cbSize = sizeof(TPluginAction);
-			PluginAction.Action = L"aMacroAway";
-			PluginAction.pszCaption = L"";
-			PluginAction.pszName = L"MakraAwayItem";
-			PluginAction.Position = 4;
-			PluginAction.IconIndex = 0;
-			PluginAction.pszPopupName = L"MakraPopUp";
-			PluginLink.CallService(AQQ_CONTROLS_CREATEPOPUPMENUITEM, 0, (LPARAM)(&PluginAction));
+			MakraPopUpItem.Action = L"aMacroXA";
+			MakraPopUpItem.pszCaption = L"";			
 		}
-		//Tworzenie przycisku "Konta nieobecne"
 		else if(Count==6)
 		{
-			TPluginAction PluginAction;
-			ZeroMemory(&PluginAction, sizeof(TPluginAction));
-			PluginAction.cbSize = sizeof(TPluginAction);
-			PluginAction.Action = L"aMacroXA";
-			PluginAction.pszCaption = L"";
-			PluginAction.pszName = L"MakraXAItem";
-			PluginAction.Position = 5;
-			PluginAction.IconIndex = 0;
-			PluginAction.pszPopupName = L"MakraPopUp";
-			PluginLink.CallService(AQQ_CONTROLS_CREATEPOPUPMENUITEM, 0, (LPARAM)(&PluginAction));
+			MakraPopUpItem.Action = L"aMacroDND";
+			MakraPopUpItem.pszCaption = L"";			
 		}
-		//Tworzenie przycisku "Konta nie przeszkadzac"
-		else if(Count==7)
-		{
-			TPluginAction PluginAction;
-			ZeroMemory(&PluginAction, sizeof(TPluginAction));
-			PluginAction.cbSize = sizeof(TPluginAction);
-			PluginAction.Action = L"aMacroDND";
-			PluginAction.pszCaption = L"";
-			PluginAction.pszName = L"MakraDNDItem";
-			PluginAction.Position = 6;
-			PluginAction.IconIndex = 0;
-			PluginAction.pszPopupName = L"MakraPopUp";
-			PluginLink.CallService(AQQ_CONTROLS_CREATEPOPUPMENUITEM, 0, (LPARAM)(&PluginAction));
-		}
-		//Tworzenie separatora
 		else if(Count==8)
 		{
-			TPluginAction PluginAction;
-			ZeroMemory(&PluginAction, sizeof(TPluginAction));
-			PluginAction.cbSize = sizeof(TPluginAction);
-			PluginAction.Action = L"";
-			PluginAction.pszCaption = L"-";
-			PluginAction.pszName = L"MakraSeparatorItem2";
-			PluginAction.Position = 7;
-			PluginAction.IconIndex = 0;
-			PluginAction.pszPopupName = L"MakraPopUp";
-			PluginLink.CallService(AQQ_CONTROLS_CREATEPOPUPMENUITEM, 0, (LPARAM)(&PluginAction));
+			MakraPopUpItem.Action = L"aMacroInvisible";
+			MakraPopUpItem.pszCaption = L"";			
 		}
-		//Tworzenie przycisku "Konta niewidoczne"
 		else if(Count==9)
 		{
-			TPluginAction PluginAction;
-			ZeroMemory(&PluginAction, sizeof(TPluginAction));
-			PluginAction.cbSize = sizeof(TPluginAction);
-			PluginAction.Action = L"aMacroInvisible";
-			PluginAction.pszCaption = L"";
-			PluginAction.pszName = L"MakraInvisibleItem";
-			PluginAction.Position = 8;
-			PluginAction.IconIndex = 0;
-			PluginAction.pszPopupName = L"MakraPopUp";
-			PluginLink.CallService(AQQ_CONTROLS_CREATEPOPUPMENUITEM, 0, (LPARAM)(&PluginAction));
+			MakraPopUpItem.Action = L"aMacroOffline";
+			MakraPopUpItem.pszCaption = L"";			
 		}
-		//Tworzenie przycisku "Konta rozlaczone"
-		else if(Count==10)
-		{
-			TPluginAction PluginAction;
-			ZeroMemory(&PluginAction, sizeof(TPluginAction));
-			PluginAction.cbSize = sizeof(TPluginAction);
-			PluginAction.Action = L"aMacroOffline";
-			PluginAction.pszCaption = L"";
-			PluginAction.pszName = L"MakraOfflineItem";
-			PluginAction.Position = 9;
-			PluginAction.IconIndex = 0;
-			PluginAction.pszPopupName = L"MakraPopUp";
-			PluginLink.CallService(AQQ_CONTROLS_CREATEPOPUPMENUITEM, 0, (LPARAM)(&PluginAction));
-		}
-		//Tworzenie separatora
 		else if(Count==11)
 		{
-			TPluginAction PluginAction;
-			ZeroMemory(&PluginAction, sizeof(TPluginAction));
-			PluginAction.cbSize = sizeof(TPluginAction);
-			PluginAction.Action = L"";
-			PluginAction.pszCaption = L"-";
-			PluginAction.pszName = L"MakraSeparatorItem3";
-			PluginAction.Position = 10;
-			PluginAction.IconIndex = 0;
-			PluginAction.pszPopupName = L"MakraPopUp";
-			PluginLink.CallService(AQQ_CONTROLS_CREATEPOPUPMENUITEM, 0, (LPARAM)(&PluginAction));
+			MakraPopUpItem.Action = L"aNote";
+			MakraPopUpItem.pszCaption = L"";			
 		}
-		//Tworzenie przycisku "Zmien opis..."
-		else if(Count==12)
-		{
-			TPluginAction PluginAction;
-			ZeroMemory(&PluginAction, sizeof(TPluginAction));
-			PluginAction.cbSize = sizeof(TPluginAction);
-			PluginAction.Action = L"aNote";
-			PluginAction.pszCaption = L"";
-			PluginAction.pszName = L"MakraNoteItem";
-			PluginAction.Position = 11;
-			PluginAction.IconIndex = 0;
-			PluginAction.pszPopupName = L"MakraPopUp";
-			PluginLink.CallService(AQQ_CONTROLS_CREATEPOPUPMENUITEM, 0, (LPARAM)(&PluginAction));
-		}
+		PluginLink.CallService(AQQ_CONTROLS_CREATEPOPUPMENUITEM, 0, (LPARAM)(&MakraPopUpItem));
 	}
 }
 //---------------------------------------------------------------------------
