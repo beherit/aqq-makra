@@ -12,14 +12,14 @@ Do skompilowania wtyczki Makra potrzebne jest:
 Znalezione błędy wtyczki należy zgłaszać na [tracekerze](http://forum.aqq.eu/tracker/project-40-makra/) znajdującym na oficjalnym forum komunikatora AQQ lub pisząc bezpośrednio do autora wtyczki (preferowany kontakt poprzez Jabber).
 
 ### Kontakt z autorem
-Autorem wtyczki Makra jest Krzysztof Grochocki. Możesz skontaktować się z nim drogą mailową (kontakt@beherit.pl) lub poprzez Jabber (im@beherit.pl).
+Autorem wtyczki Makra jest Krzysztof Grochocki. Możesz skontaktować się z nim poprzez XMPP pisząc na im@beherit.pl.
 
 ### Licencja
 Wtyczka Makra objęta jest licencją [GNU General Public License 3](http://www.gnu.org/copyleft/gpl.html).
 
 ~~~~
 Makra
-Copyright (C) 2008-2015  Krzysztof Grochocki
+Copyright (C) 2008-2016  Krzysztof Grochocki
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------------
-// Copyright (C) 2008-2015 Krzysztof Grochocki
+// Copyright (C) 2008-2016 Krzysztof Grochocki
 //
 // This file is part of Makra
 //
@@ -168,10 +168,10 @@ extern "C" __declspec(dllexport) PPluginInfo __stdcall AQQPluginInfo(DWORD AQQVe
 	PluginInfo.ShortName = L"Makra";
 	PluginInfo.Version = PLUGIN_MAKE_VERSION(2,2,1,0);
 	PluginInfo.Description = L"Wtyczka dodaje funkcjonalnoœæ makr, znan¹ ze starych, pocz¹tkowych wersji beta komunikatora AQQ, która kry³a siê pod ikonk¹ pioruna.";
-	PluginInfo.Author = L"Krzysztof Grochocki (Beherit)";
-	PluginInfo.AuthorMail = L"kontakt@beherit.pl";
-	PluginInfo.Copyright = L"Krzysztof Grochocki (Beherit)";
-	PluginInfo.Homepage = L"http://beherit.pl";
+	PluginInfo.Author = L"Krzysztof Grochocki";
+	PluginInfo.AuthorMail = L"contact@beherit.pl";
+	PluginInfo.Copyright = L"Krzysztof Grochocki";
+	PluginInfo.Homepage = L"beherit.pl";
 	PluginInfo.Flag = 0;
 	PluginInfo.ReplaceDefaultModule = 0;
 
